@@ -1,0 +1,53 @@
+{
+   "settings": {
+      "index": {
+         "analysis": {
+         	"char_filter": {
+		        "zero_width_spaces": {
+		            "type":       "mapping",
+		            "mappings": [ "\\u093a=> ","\\u093b=> ","\\u093c=> ","\\u093d=> ","\\u093e=> ","\\u093f=> ",
+		            			"\\u094a=> ","\\u094b=> ","\\u094c=> ","\\u094d=> ","\\u094e=> ","\\u094f=> ",
+		            			"\\u0940=> ","\\u0941=> ","\\u0942=> ","\\u0943=> ","\\u0944=> ","\\u0945=> ",
+		            			"\\u0946=> ","\\u0947=> ","\\u0948=> ","\\u0949=> "] 
+		        }
+		     },
+            "filter": {
+                "my_icu_transformer_any_latin": {
+                  "type": "icu_transform",
+                  "id": "Any-Latin"
+               }
+            },
+            "analyzer": {
+               "my_icu_ch": {
+                  "type": "custom",
+                  "tokenizer": "icu_tokenizer",
+                  "char_filter": [ "zero_width_spaces" ]
+               },
+               "my_icu_any_latin": {
+                  "type": "custom",
+                  "tokenizer": "icu_tokenizer",
+                  "filter": [
+                     "my_icu_transformer_any_latin"
+                  ]
+               }
+            }
+         }
+      }
+   },
+   "mappings": {
+      "words": {
+         "properties": {
+            "Hiscript": {
+               "type": "keyword"
+            },
+            "base": {
+            	"type": "text",
+    			"analyzer": "my_icu_ch"
+       		},
+            "Enscript": {
+                "type": "keyword"
+             }
+         }
+      }
+   }
+}
